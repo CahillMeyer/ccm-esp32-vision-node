@@ -1,5 +1,10 @@
 # ccm-esp32-vision-node
 
+![ESP-IDF](https://img.shields.io/badge/ESP--IDF-C%2B%2B%20project-orange)
+![Platform](https://img.shields.io/badge/Platform-ESP32--S3-blue)
+![Language](https://img.shields.io/badge/Language-C%2B%2B17-purple)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 Embedded camera node for **ESP32-S3** with a modular C++ architecture for real-time computer vision.
 This project demonstrates professional embedded CV engineering: camera bring-up, modular pipelines,
 and efficient processing on low-power microcontrollers.
@@ -33,6 +38,7 @@ and efficient processing on low-power microcontrollers.
 ---
 
 ## 🧱 Project Architecture
+For a detailed component diagram and explanation, see [docs/architecture.md](docs/architecture.md).
 
 ```
 ccm-esp32-vision-node/
@@ -51,6 +57,22 @@ ccm-esp32-vision-node/
 ├── docs/                  # Architecture & benchmarks (planned)
 └── examples/              # Sample demos (planned)
 ```
+
+---
+
+## 🧪 Tested / Target Environment
+
+This project is being developed and tested with:
+
+- **Chip:** ESP32-S3
+- **SDK:** ESP-IDF (Linux / WSL)
+- **Host environment:** Windows 10 + WSL Ubuntu
+- **Tooling:** VS Code, `idf.py`, CMake
+
+Planned hardware targets include:
+
+- ESP32-S3 dev boards with PSRAM
+- Camera modules based on OV2640 / OV5640
 
 ---
 
