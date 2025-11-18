@@ -1,0 +1,10 @@
+idf_component_register(
+    SRCS
+        "CameraNode.cpp"
+    INCLUDE_DIRS
+        "."
+    REQUIRES
+        esp32-camera
+        utils
+        drivers
+)

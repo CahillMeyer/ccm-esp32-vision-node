@@ -1,0 +1,13 @@
+idf_component_register(
+    SRCS
+        "main.cpp"
+    INCLUDE_DIRS
+        "."
+    REQUIRES
+        esp_timer
+        camera_node
+        cv_pipeline
+        stream_server
+        utils
+        drivers
+)

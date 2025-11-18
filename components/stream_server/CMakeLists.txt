@@ -1,0 +1,9 @@
+idf_component_register(
+    SRCS
+        "StreamServer.cpp"
+    INCLUDE_DIRS
+        "."
+    REQUIRES
+        utils
+        drivers
+)
