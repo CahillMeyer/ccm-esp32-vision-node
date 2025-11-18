@@ -1,21 +1,12 @@
 # ------------------------------------------------------------------------------
 # ESP-IDF / ESP32
 # ------------------------------------------------------------------------------
-
-# ESP-IDF build output
 build/
 sdkconfig
 sdkconfig.old
-
-# IDF managed components
 managed_components/
-
-# Python virtual env created by ESP-IDF
 .espressif/
-
-# Debug files
 gdb_backtrace.txt
-*.elf
 
 # ------------------------------------------------------------------------------
 # CMake
@@ -51,9 +42,12 @@ compile_commands.json
 *.map
 *.bin
 *.hex
+*.elf
 *.log
 
+# ------------------------------------------------------------------------------
 # Libraries
+# ------------------------------------------------------------------------------
 *.a
 *.so
 *.dll
