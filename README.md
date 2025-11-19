@@ -4,6 +4,8 @@
 ![Platform](https://img.shields.io/badge/Platform-ESP32--S3-blue)
 ![Language](https://img.shields.io/badge/Language-C%2B%2B17-purple)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![CI](https://github.com/CahillMeyer/ccm-esp32-vision-node/actions/workflows/ci.yml/badge.svg)
+
 
 Embedded camera node for **ESP32-S3** with a modular C++ architecture for real-time computer vision.
 This project demonstrates professional embedded CV engineering: camera bring-up, modular pipelines,
