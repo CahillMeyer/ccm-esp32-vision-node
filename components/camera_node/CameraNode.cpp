@@ -1,3 +1,11 @@
+// CameraNode.cpp
+// High-level camera management for ESP32-S3.
+//
+// TODO:
+//  - Add board-specific pin mappings for different dev kits.
+//  - Expose runtime configuration (frame size, pixel format, etc.).
+//  - Add error codes / status enum instead of bool return from init().
+
 #include "CameraNode.hpp"
 #include <esp_log.h>
 #include <cstring>

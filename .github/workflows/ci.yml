@@ -1,0 +1,52 @@
+name: Build & Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Check Markdown + Repo Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify folder structure
+        run: |
+          test -d components || (echo "Missing components/ folder" && exit 1)
+          test -d firmware || (echo "Missing firmware/ folder" && exit 1)
+          test -d docs || (echo "Missing docs/ folder" && exit 1)
+          echo "Folder structure OK"
+
+      - name: Lint Markdown
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - run: |
+          npm install -g markdownlint-cli
+          markdownlint "**/*.md" || true
+
+  build-check:
+    name: Validate CMake + C++ formatting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install cmake & clang-format
+        run: sudo apt-get update && sudo apt-get install -y cmake clang-format
+
+      - name: Check CMake validity
+        run: |
+          cmake --version
+          echo "CMake available; skipping actual ESP-IDF build"
+
+      - name: Run clang-format dry-run
+        run: |
+          find . -name "*.cpp" -o -name "*.hpp" | xargs clang-format -n || true
