@@ -36,19 +36,21 @@ Core design principles:
 
 ```mermaid
 flowchart LR
-    subgraph HW[Hardware]
-        CAM[Camera Sensor<br/>OV2640 / OV5640]
+    subgraph Hardware
+        CAM[Camera Sensor OV2640/OV5640]
     end
 
-    subgraph FW[Firmware Components]
-        CN[CameraNode<br/>components/camera_node]
-        CV[CvPipeline<br/>components/cv_pipeline]
-        SS[StreamServer (Planned)<br/>components/stream_server]
-        DRV[Drivers<br/>components/drivers]
-        UT[Utils<br/>components/utils]
+    subgraph Firmware
+        CN[CameraNode]
+        CV[CvPipeline]
+        SS[StreamServer (Planned)]
+        DRV[Drivers]
+        UT[Utils]
     end
 
-    CAM --> CN --> CV --> SS
+    CAM --> CN
+    CN --> CV
+    CV --> SS
     CV --> UT
     CN --> UT
 ```
@@ -148,12 +150,12 @@ This architecture mirrors higher‑power embedded vision stacks but optimized fo
 
 ```mermaid
 flowchart LR
-    A[Sensor Exposure] --> B[DMA → Frame Buffer]
-    B --> C[CameraNode::capture_frame()]
-    C --> D[CvPipeline::process()]
-    D -->|Detections + FPS| E[UART Logs]
-    D -->|Future MJPEG| F[StreamServer]
-    E --> G[Developer / Host]
+    A[Sensor Exposure] --> B[DMA to Frame Buffer]
+    B --> C[CameraNode capture_frame]
+    C --> D[CvPipeline process]
+    D --> E[UART Logs]
+    D --> F[StreamServer]
+    E --> G[Developer or Host]
     F --> H[Remote Dashboard]
 ```
 
@@ -163,23 +165,22 @@ flowchart LR
 
 ```mermaid
 sequenceDiagram
-    participant APP as main.cpp
+    participant APP as Main
     participant CN as CameraNode
     participant CV as CvPipeline
     participant SS as StreamServer
 
     APP->>CN: init()
-    CN-->>APP: OK / Error
+    CN-->>APP: OK or Error
 
     loop Capture Loop
         APP->>CN: capture_frame()
-        CN-->>APP: frame*
-        APP->>CV: process(frame*)
+        CN-->>APP: frame
+        APP->>CV: process(frame)
         CV-->>APP: results
-        APP->>SS: (planned) pushFrame()
-        APP->>CN: release_frame(frame*)
+        APP->>SS: pushFrame() (planned)
+        APP->>CN: release_frame()
     end
-
 ```
 
 ---
@@ -250,7 +251,7 @@ Loadable pipeline configuration (JSON or struct):
 
 ## 10.3 TinyML Stage (Optional)
 Support for extremely compact embedded inference:
-- 96×96 CNNs
+- 96x96 CNNs
 - FOMO-style detection (Edge Impulse)
 - Post-threshold classification
 
@@ -261,4 +262,3 @@ Support for extremely compact embedded inference:
 This architecture enables the ESP32‑S3 to act as a **fully functional embedded vision node**, capable of
 preprocessing, analysis, and eventually streaming. It is modular, extensible, and designed for real-time
 operation under microcontroller constraints.
-
