@@ -205,6 +205,6 @@ MIT License — see `LICENSE`.
 
 ## 👤 Author
 
-**Cahill Meyer**  
+**Christie Cahill Meyer**  
 Embedded Vision Engineer  
 GitHub: https://github.com/CahillMeyer
