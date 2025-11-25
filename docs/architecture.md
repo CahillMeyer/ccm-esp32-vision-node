@@ -1,4 +1,4 @@
-# CCM ESP32 Vision Node – Architecture (Updated & Expanded)
+# CCM ESP32 Vision Node – Architecture
 
 This document describes the complete architecture of the `ccm-esp32-vision-node` firmware, including
 system behavior, modular components, data flow, constraints, and planned extensions.
@@ -43,7 +43,7 @@ flowchart LR
     subgraph Firmware
         CN[CameraNode]
         CV[CvPipeline]
-        SS[StreamServer (Planned)]
+        SS[StreamServer Planned]
         DRV[Drivers]
         UT[Utils]
     end
