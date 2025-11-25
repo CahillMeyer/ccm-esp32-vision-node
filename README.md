@@ -6,13 +6,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ![CI](https://github.com/CahillMeyer/ccm-esp32-vision-node/actions/workflows/ci.yml/badge.svg)
 
-
 Embedded camera node for **ESP32-S3** with a modular C++ architecture for real-time computer vision.
 This project demonstrates professional embedded CV engineering: camera bring-up, modular pipelines,
-and efficient processing on low-power microcontrollers.
+efficient frame handling, and low‑power vision processing.
 
-> **Work-in-progress**: This repository is part of the CCMCode Embedded Vision toolkit and serves as
-> a portfolio-quality example of modern ESP-IDF C++ development.
+> **Work‑in‑progress:** Part of the CCM Code Embedded Vision toolkit.  
+> Designed as a portfolio‑quality example of clean, modern ESP‑IDF C++ development.
 
 ---
 
@@ -23,16 +22,17 @@ and efficient processing on low-power microcontrollers.
 - Fully compiling project with ESP32-S3 target under WSL Ubuntu
 - C++ `CameraNode` component using the `esp32-camera` managed component
 - Real-time FPS measurement with `esp_timer`
+- Example: **basic_fps_logger** (`examples/basic_fps_logger/`)
 
 ### 🛠 In Progress
-- C++ computer vision pipeline (`cv_pipeline`)
-- Frame timing and lightweight profiling utilities
+- `cv_pipeline` stages (grayscale, threshold, ROI operations)
+- Frame timing and per‑stage profiling utilities
 - Clean, extensible class-based architecture for embedded CV
 
 ### 📌 Planned
 - Color blob detector (HSV thresholding)
-- ROI extraction + simple pre-processing steps
-- MJPEG or raw frame Wi-Fi streaming server
+- ROI extraction + pre-processing stages
+- MJPEG or raw frame Wi‑Fi streaming server
 - UART debug dashboard (FPS, memory, timings)
 - Benchmarks across frame sizes & pixel formats
 - Example: simple color-object tracker
@@ -40,7 +40,9 @@ and efficient processing on low-power microcontrollers.
 ---
 
 ## 🧱 Project Architecture
-For a detailed component diagram and explanation, see [docs/architecture.md](docs/architecture.md).
+
+For full component documentation, see:  
+👉 `docs/architecture.md`
 
 ```
 ccm-esp32-vision-node/
@@ -54,35 +56,57 @@ ccm-esp32-vision-node/
 │
 ├── firmware/
 │   ├── main/              # App entry point (main.cpp)
-│   └── CMakeLists.txt     # ESP-IDF project definition
+│   └── CMakeLists.txt
 │
-├── docs/                  # Architecture & benchmarks (planned)
-└── examples/              # Sample demos (planned)
+├── docs/
+│   ├── architecture.md
+│   └── media/             # diagrams (placeholder)
+│
+└── examples/
+    └── basic_fps_logger/  # First working demo
 ```
 
 ---
 
 ## 🧪 Tested / Target Environment
 
-This project is being developed and tested with:
+Developed and tested with:
 
-- **Chip:** ESP32-S3
-- **SDK:** ESP-IDF (Linux / WSL)
-- **Host environment:** Windows 10 + WSL Ubuntu
-- **Tooling:** VS Code, `idf.py`, CMake
+- **Chip:** ESP32-S3  
+- **SDK:** ESP-IDF (Linux / WSL)  
+- **Environment:** Windows 10 + WSL Ubuntu  
+- **Tools:** VS Code, `idf.py`, CMake  
 
-Planned hardware targets include:
+Validated hardware:
 
-- ESP32-S3 dev boards with PSRAM
-- Camera modules based on OV2640 / OV5640
+- ESP32-S3 dev boards with PSRAM  
+- OV2640 camera modules  
+- OV5640 (planned, not yet validated)
+
+---
+
+## 📸 Hardware Requirements
+
+Target boards:
+
+- ESP32-S3 dev board with PSRAM  
+- Camera modules:  
+  - OV2640 (supported)  
+  - OV5640 (planned)
+
+Recommended specs:
+
+- 8 MB PSRAM  
+- QVGA or VGA frame sizes for initial demos  
+- Stable 5V USB power  
+
+If using boards such as **Seeed XIAO ESP32‑S3 Sense**, adjust only `camera_config_t` in `camera_node`.
 
 ---
 
 ## 🖥️ Getting Started (ESP-IDF)
 
-### 1. Install ESP-IDF
-
-Follow the official install instructions:
+### 1. Install ESP-IDF  
 https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/get-started/
 
 ### 2. Clone the repository
@@ -92,15 +116,13 @@ git clone https://github.com/CahillMeyer/ccm-esp32-vision-node.git
 cd ccm-esp32-vision-node/firmware
 ```
 
-### 3. Configure the target
-
+### 3. Configure the target  
 ```bash
 idf.py set-target esp32s3
 idf.py menuconfig
 ```
 
-### 4. Build & flash
-
+### 4. Build & flash  
 ```bash
 idf.py build
 idf.py flash monitor
@@ -108,33 +130,76 @@ idf.py flash monitor
 
 ---
 
-## 📊 Status
+## 📟 Example Serial Output (FPS Logger)
 
-This project successfully:
-- builds under **WSL Ubuntu**
-- uses the **esp32-camera** managed component
-- compiles a fully working **C++ main loop**
-- initializes and reads from the camera
-- produces frame timing (FPS) logs
+```text
+I (0) cpu_start: Starting scheduler on PRO CPU.
+I (0) main: Initialising camera...
+I (250) camera_node: Camera init OK (320x240, PIXFORMAT_JPEG)
+I (260) main: Captured frame 1 (size=32768 bytes)
+I (270) main: FPS: 18.7
+I (323) main: Captured frame 2 (size=32768 bytes)
+I (333) main: FPS: 19.5
+...
+```
 
-Next steps will add actual image-processing functionality.
+---
+
+## 📊 Early Benchmarks (Placeholder)
+
+| Resolution | Pixel Format | Pipeline Stages | Avg FPS | Notes |
+|-----------|--------------|------------------|--------:|-------|
+| 320×240   | RGB565       | None (raw)       | TBD     | Baseline |
+| 320×240   | Gray         | grayscale        | TBD     | First CV test |
+| 320×240   | Gray+TH      | gray+threshold   | TBD     | Planned |
+| 640×480   | RGB565       | None             | TBD     | PSRAM required |
+
+Benchmarks will be updated as the pipeline matures.
 
 ---
 
 ## 🗺️ Roadmap
 
-- [ ] Add CvPipeline grayscale + threshold stage
-- [ ] Add frame buffer pre-processing (ROI, downsample)
-- [ ] Add MJPEG Wi-Fi streaming server
-- [ ] Add architecture diagrams
-- [ ] Add host-side unit tests for pipeline components
-- [ ] Add example demos (color tracking, region extraction)
+### Near-term
+- Add `cv_pipeline` grayscale + threshold stage  
+- Add ROI cropping + reduction steps  
+- Add MJPEG Wi‑Fi streaming server  
+- Add diagrams under `docs/media/`  
+
+### Mid-term
+- Add blob detection demo  
+- Add region extraction example  
+- Add JSON status endpoint  
+- Add host-side tests  
+
+### Vision
+A reusable, modular **Embedded Vision Node** for ESP32-S3:  
+Setup board → configure pipeline → get structured vision output via UART or Wi‑Fi.
+
+---
+
+## Who Is This For?
+
+- Embedded firmware engineers exploring ESP-IDF C++ patterns  
+- Robotics / IoT teams evaluating low‑power embedded vision  
+- Engineering leads reviewing CCM Code’s architecture + code quality  
+- Clients needing a reference implementation for ESP32‑based smart camera nodes  
+
+---
+
+## What Works Today (v0.1.0 – Alpha)
+
+- ESP-IDF C++ multi-component project structure  
+- Camera bring-up via `esp32-camera`  
+- Continuous capture loop with real-time FPS logging  
+- Builds and flashes cleanly from WSL → ESP32-S3  
+- Early example demo under `examples/basic_fps_logger`  
 
 ---
 
 ## 📄 License
 
-MIT License
+MIT License — see `LICENSE`.
 
 ---
 
