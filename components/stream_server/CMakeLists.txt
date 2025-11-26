@@ -6,4 +6,5 @@ idf_component_register(
     REQUIRES
         utils
         drivers
+        esp32-camera
 )

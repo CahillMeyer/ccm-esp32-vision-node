@@ -59,3 +59,12 @@ compile_commands.json
 *.tmp
 *.bak
 *.orig
+
+# ------------------------------------------------------------------------------
+# Simulation Artifacts
+# ------------------------------------------------------------------------------
+simulation/vision_sim
+simulation/Makefile
+simulation/CMakeCache.txt
+simulation/CMakeFiles/
+simulation/cmake_install.cmake

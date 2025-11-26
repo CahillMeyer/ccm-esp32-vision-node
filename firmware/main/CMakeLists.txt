@@ -5,9 +5,12 @@ idf_component_register(
         "."
     REQUIRES
         esp_timer
+        nvs_flash
+        esp_app_format
         camera_node
         cv_pipeline
         stream_server
         utils
         drivers
+        settings
 )
