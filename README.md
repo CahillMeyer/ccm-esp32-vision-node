@@ -18,24 +18,19 @@ efficient frame handling, and low‑power vision processing.
 ## 🚀 Features (Current & Planned)
 
 ### ✅ Implemented
-- ESP-IDF C++ project with multi-component architecture (`camera_node`, `cv_pipeline`, `stream_server`, `utils`, `drivers`)
-- Fully compiling project with ESP32-S3 target under WSL Ubuntu
+- ESP-IDF C++ project with multi-component architecture
 - C++ `CameraNode` component using the `esp32-camera` managed component
-- Real-time FPS measurement with `esp_timer`
-- Example: **basic_fps_logger** (`examples/basic_fps_logger/`)
-- Host-Based Vision Simulator (`simulation/`) for fast PC-based testing
+- **CvPipeline** with Grayscale, ROI, Downsampling, Thresholding, and Blob Detection
+- **Host-Based Simulator** (`simulation/`) for fast PC-based testing
+- **Persistent Settings** using NVS (Non-Volatile Storage)
+- Real-time FPS measurement and per-stage profiling
 
 ### 🛠 In Progress
-- `cv_pipeline` stages (grayscale, threshold, ROI operations)
-- Frame timing and per‑stage profiling utilities
-- Clean, extensible class-based architecture for embedded CV
+- MJPEG Wi‑Fi streaming server (`stream_server`)
+- Color blob detector (HSV)
 
 ### 📌 Planned
-- Color blob detector (HSV thresholding)
-- ROI extraction + pre-processing stages
-- MJPEG or raw frame Wi‑Fi streaming server
 - UART debug dashboard (FPS, memory, timings)
-- Benchmarks across frame sizes & pixel formats
 - Example: simple color-object tracker
 
 ---
@@ -154,6 +149,8 @@ I (333) main: FPS: 19.5
 | 320×240   | Gray         | grayscale        | TBD     | First CV test |
 | 320×240   | Gray+TH      | gray+threshold   | TBD     | Planned |
 | 640×480   | RGB565       | None             | TBD     | PSRAM required |
+| 320×240 | Gray + Threshold | ~4.5 ms | ~28 | Host Sim |
+| 320×240 | Gray + ROI + Downsample (2x) | ~1.0 ms | ~90+ | Host Sim (80x60 effective) |
 
 Benchmarks will be updated as the pipeline matures.
 
@@ -162,8 +159,8 @@ Benchmarks will be updated as the pipeline matures.
 ## 🗺️ Roadmap
 
 ### Near-term
-- Add `cv_pipeline` grayscale + threshold stage  
-- Add ROI cropping + reduction steps  
+- [x] Add `cv_pipeline` grayscale + threshold stage
+- [x] Add ROI cropping + reduction steps
 - Add MJPEG Wi‑Fi streaming server  
 - Add diagrams under `docs/media/`  
 

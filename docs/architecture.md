@@ -84,21 +84,21 @@ A configurable, extensible classical‑CV pipeline for microcontrollers.
 
 Responsible for:
 - Grayscale conversion
-- Thresholding
-- ROI extraction
-- Blob detection (future)
+- ROI extraction (Cropping)
+- Downsampling (Scaling)
+- Thresholding (Binarization)
+- Blob detection (Connected Components)
 - Per‑stage profiling
-- Optional downsampling
-- Emitting lightweight detection metadata
 
-Pipeline model:
+Pipeline model (v0.2.1):
 
 ```mermaid
 flowchart LR
     FB[Raw Frame] --> GS[Grayscale]
-    GS --> TH[Threshold]
-    TH --> ROI[ROI Extraction]
-    ROI --> BL[Blob Detection]
+    GS --> ROI[ROI Crop]
+    ROI --> DS[Downsample]
+    DS --> TH[Threshold]
+    TH --> BL[Blob Detection]
     BL --> OUT[Results + Metrics]
 ```
 
@@ -233,16 +233,9 @@ This enables transparent, real‑time profiling and tuning.
 # 10. Planned Future Extensions
 
 ## 10.1 Configurable Pipelines
-Loadable pipeline configuration (JSON or struct):
+✅ Partially Implemented (v0.2.1): The pipeline is now configured at runtime via the PipelineConfig C++ structure. This configuration is persisted to NVS (Non-Volatile Storage) via the Settings component, allowing settings to survive reboots.
 
-```json
-{
-  "grayscale": true,
-  "threshold": true,
-  "roi": { "x": 50, "y": 40, "w": 180, "h": 180 },
-  "blob": true
-}
-```
+Future: Support for loading this configuration from a JSON file on an SD card or via Wi-Fi.
 
 ## 10.2 Additional Output Backends
 - Buffered UART binary streaming

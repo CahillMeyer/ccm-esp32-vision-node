@@ -79,15 +79,18 @@ Until then:
 ## 🧪 Testing
 
 ### Before submitting a PR:
-- Ensure the project builds under ESP-IDF:
-  ```bash
-  idf.py build
-  ```
-- Test on real ESP32-S3 hardware if possible.
-- Run the example:
-  ```bash
-  examples/basic_fps_logger/
-  ```
+1. **Hardware Test:**
+   - Ensure the project builds: `idf.py build`
+   - Test on ESP32-S3 if available.
+
+2. **Simulation Test (Recommended):**
+   - If modifying `cv_pipeline` logic, verify it on the host simulator:
+     ```bash
+     cd simulation
+     cmake . && make
+     ./vision_sim
+     ```
+   - Ensure ROI and Blob logic holds up against the test pattern.
 
 ---
 
