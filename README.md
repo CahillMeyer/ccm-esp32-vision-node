@@ -23,6 +23,7 @@ efficient frame handling, and low‑power vision processing.
 - C++ `CameraNode` component using the `esp32-camera` managed component
 - Real-time FPS measurement with `esp_timer`
 - Example: **basic_fps_logger** (`examples/basic_fps_logger/`)
+- Host-Based Vision Simulator (`simulation/`) for fast PC-based testing
 
 ### 🛠 In Progress
 - `cv_pipeline` stages (grayscale, threshold, ROI operations)
