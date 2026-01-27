@@ -206,3 +206,11 @@ MIT License — see `LICENSE`.
 **Christie Cahill Meyer**  
 Embedded Vision Engineer  
 GitHub: https://github.com/CahillMeyer
+
+---
+
+## 🛠️ Support & Custom Integration
+Building real-time embedded vision systems is complex. This repo is a starting point, but every hardware setup is unique.
+
+* **Stuck on integration?** I offer a **Priority Issue Review** tier on GitHub Sponsors. I'll prioritize your bug reports and config questions. [Get Priority Support](https://github.com/sponsors/CahillMeyer)
+* **Need a custom driver?** [Book a Technical Quick-Sync](https://github.com/sponsors/CahillMeyer) to discuss your specific sensor or board requirements.
